@@ -3,6 +3,36 @@
 </head>
 <body>
   <%- include('../includes/primary-nav.ejs') %> 
-  Signup
+  <form action="/create-user" method="post" class="container">
+    <input type="text" name="name" placeholder="You Name? ">
+    <input type="password" name="password" placeholder="Password">
+    <input type="password" name="confirmpassword" placeholder="Confirm Password">
+    <input type="email" name="email" placeholder="You Email">
+    <input type="tel" name="email" placeholder="Phone No(Optional)">
+    <input type="date" name="date_of_birth" placeholder="Your Date of Birth">
+    <input type="text" name="country" placeholder="Country">
+    <input type="text" name="state" placeholder="State(Optional)">
+    <input type="text" name="city" placeholder="City">
+    <div>
+      <label for="category">I am </label>
+      <select id="category" name="category">
+        <option value="employee">Loking for a job</option>
+        <option value="partner">Looking for a business partner an investor</option>
+        <option value="investor">An Investor</option>
+      </select>
+    </div>
+    <textarea name="bio" rows="5" placeholder="Tell us about yourself"></textarea>
+    <div>
+      <label for="gender">Gender </label>
+      <select id="gender" name="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="others">Others</option>
+      </select>
+    </div>
+    <input type="number" name="experience" placeholder="Your Work Experience">
+    <input type="text" name="role" placeholder="Yor Role/Title">
+    <input type="button" value="Signup">
+  </form>
 </body>
 </html>
