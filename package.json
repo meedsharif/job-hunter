@@ -1,0 +1,25 @@
+{
+  "name": "job-hunter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "sass": "node-sass --include-path sass --watch public/scss/main.scss public/css/style.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "mongoose": "^5.9.6"
+  },
+  "devDependencies": {
+    "node-sass": "^4.13.1",
+    "nodemon": "^2.0.2"
+  }
+}
