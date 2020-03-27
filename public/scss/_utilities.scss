@@ -1,0 +1,14 @@
+.container {
+	width: 100%;
+	padding: 0 1rem;
+	margin: 0 auto;
+
+	@media only screen and (min-width: $container-width) {
+		width: $container-width;
+		padding: 0;
+	}
+}
+
+.decoration-none {
+	text-decoration: none;
+}
