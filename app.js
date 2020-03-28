@@ -49,6 +49,11 @@ app.set('view engine', 'ejs');
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 
+app.use((req, res, next) => {
+	res.locals.isLoggedIn = req.session.isLoggedIn;
+	next();
+})
+
 // Routers
 app.use(publicRouter);
 app.use('/auth', authRouter);

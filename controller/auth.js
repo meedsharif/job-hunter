@@ -3,45 +3,38 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
 exports.getLoginPage = (req, res) => {
+	if(req.session.isLoggedIn) return res.redirect('/');
+
 	res.render('auth/login');
 };
 
 exports.loginUser = async (req, res) => {
 	const { email, password } = req.body;
-
 	try {
 		const user = await User.findOne({ email });
-		
-		if(!user) {
-			return res.redirect('/auth/login');
-		}
+
+		if (!user) return res.redirect('/auth/login');
 
 		const passwordMatched = await bcrypt.compare(password, user.password);
-
-		if(!passwordMatched) {
+		if (!passwordMatched) {
 			res.redirect('/auth/login');
 		}
 
-		
 		req.session.isLoggedIn = true;
-		req.session.user = user;
+		req.session.user = { name: user.name, email: user.email };
 
 		req.session.save(err => {
-			if(err) {
-				return console.log(err);
-			}
-			
+			if (err) return console.log(err);
 			res.redirect('/');
 		});
-
-
 	} catch (error) {
 		console.log(error);
 	}
-
-}
+};
 
 exports.getSignupPage = (req, res) => {
+	if(req.session.isLoggedIn) return res.redirect('/');
+	
 	res.render('auth/signup');
 };
 
@@ -82,6 +75,13 @@ exports.createUser = async (req, res) => {
 
 		res.redirect('/');
 	} catch (error) {
-        console.log(error);
-    }
+		console.log(error);
+	}
 };
+
+exports.logoutUser = (req, res, next) => {
+	req.session.destroy(err => {
+		if (err) return console.log(err);
+		res.redirect('/');
+	});
+}
