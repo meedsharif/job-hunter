@@ -3,6 +3,10 @@
 </head>
 <body>
   <%- include('../includes/primary-nav.ejs') %> 
-  Login
+  <form action="/auth/login-user" method="POST" class="container">
+    <input type="email" name="email" placeholder="You Email">  
+    <input type="password" name="password" placeholder="Password">
+    <input type="submit" value="Login">
+  </form>
 </body>
 </html>

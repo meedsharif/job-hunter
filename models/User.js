@@ -5,6 +5,11 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  picture: {
+    thumbnail: String,
+    mobile: String,
+    desktop: String
+  },
   password: {
     type: String,
     required: true
@@ -33,7 +38,7 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  Gender: {
+  gender: {
     type: String,
     required: true
   },
