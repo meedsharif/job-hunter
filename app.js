@@ -2,6 +2,7 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const flash = require('connect-flash');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
@@ -41,6 +42,7 @@ app.use(
     store: store,
 	})
 );
+app.use(flash())
 
 // Setup EJS
 app.set('views', 'views');
@@ -48,6 +50,7 @@ app.set('view engine', 'ejs');
 
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(express.static('public'));
+
 
 app.use((req, res, next) => {
 	res.locals.isLoggedIn = req.session.isLoggedIn;
@@ -57,6 +60,7 @@ app.use((req, res, next) => {
 // Routers
 app.use(publicRouter);
 app.use('/auth', authRouter);
+
 
 // Run the app once the app is connected to the database
 db.once('open', () => {

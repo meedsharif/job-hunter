@@ -3,10 +3,15 @@
 </head>
 <body>
   <%- include('../includes/primary-nav.ejs') %> 
-  <form action="/auth/login-user" method="POST" class="container">
-    <input type="email" name="email" placeholder="You Email">  
-    <input type="password" name="password" placeholder="Password">
-    <input type="submit" value="Login">
-  </form>
+  <div class="container">
+    <% if (errorMessage) { %>
+      <span><%= errorMessage %></span>
+    <% } %> 
+    <form action="/auth/login-user" method="POST">
+      <input type="email" name="email" placeholder="You Email">  
+      <input type="password" name="password" placeholder="Password">
+      <input type="submit" value="Login">
+    </form>
+  </div>
 </body>
 </html>

@@ -1,11 +1,12 @@
 const bcrypt = require('bcrypt');
+const { validationResult } = require('express-validator');
 
 const User = require('../models/User');
 
 exports.getLoginPage = (req, res) => {
 	if(req.session.isLoggedIn) return res.redirect('/');
 
-	res.render('auth/login');
+	res.render('auth/login', {errorMessage: ''});
 };
 
 exports.loginUser = async (req, res) => {
@@ -13,11 +14,17 @@ exports.loginUser = async (req, res) => {
 	try {
 		const user = await User.findOne({ email });
 
-		if (!user) return res.redirect('/auth/login');
+		if (!user) {
+			return res.status(422).render('auth/login', {
+				errorMessage: "User does not exist"
+			})
+		};
 
 		const passwordMatched = await bcrypt.compare(password, user.password);
 		if (!passwordMatched) {
-			res.redirect('/auth/login');
+			return res.status(422).render('auth/login', {
+				errorMessage: "Invalid password"
+			})
 		}
 
 		req.session.isLoggedIn = true;
@@ -33,9 +40,16 @@ exports.loginUser = async (req, res) => {
 };
 
 exports.getSignupPage = (req, res) => {
+	let error = req.flash('error');
+	if (error.length > 0) {
+		error = error[0];
+	} else {
+		error = null;
+	}
+
 	if(req.session.isLoggedIn) return res.redirect('/');
-	
-	res.render('auth/signup');
+
+	res.render('auth/signup', { errorMessage: error });
 };
 
 exports.createUser = async (req, res) => {
@@ -55,7 +69,16 @@ exports.createUser = async (req, res) => {
 		role
 	} = req.body;
 
+	const errors = validationResult(req);
+
 	try {
+		if(!errors.isEmpty()) {
+			return res.status(422).render('auth/signup', {
+					errorMessage: errors.array()[0].msg
+			});			
+		}
+
+
 		const hashedPW = await bcrypt.hash(password, 12);
 		const user = User({
 			name,
@@ -73,7 +96,9 @@ exports.createUser = async (req, res) => {
 
 		await user.save();
 
-		res.redirect('/');
+		res.status(422).render('auth/login', {
+			errorMessage: "Account created. you can login to your account."
+		})
 	} catch (error) {
 		console.log(error);
 	}
