@@ -56,3 +56,11 @@ footer {
   .navbar__list-item {
     margin-left: 2rem;
     list-style: none; }
+
+form {
+  display: flex;
+  flex-direction: column; }
+  form * {
+    margin-top: 2rem;
+    padding: 1.8rem;
+    font-size: 1.8rem; }
