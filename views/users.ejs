@@ -1,0 +1,51 @@
+<%- include('./includes/head.ejs') %> 
+  <title>Document</title>
+</head>
+<body>
+  <%- include('./includes/primary-nav.ejs') %>
+  <div class="user container mt-3">
+    <div class="user__list mt-2-not-1st-child">
+      <% if(users.length > 0) {%>  
+        <% for(u of users) { %> 
+          <div class="card">
+            <div class="card__image">
+              <img src="https://robohash.org/<%= u.name %>" alt="<%= u.name %>'s picture'">
+            </div>
+            <div class="card__info">
+              <span>🕵️‍♂️ <%= u.name %></span>
+              <span>📧 <%= u.email %></span>
+              <span>🏡 <%= u.country %></span>
+              <span><a href="/profile/<%= u.name %>">View profile</a></span>
+            </div>
+          </div>
+        <% } %>  
+      <% } else { %>
+        <div>No Users found</div>
+      <% } %> 
+    </div>
+    <div class="user__filter">
+      <form action="/users" method="get">
+        <div class="type">
+          <label for="category">Find </label>
+          <select id="category" name="category">
+            <option value="employee">Employee</option>
+            <option value="partner">Business partner</option>
+            <option value="investor">Investors</option>
+          </select>
+        </div>
+
+        <input type="text" name="country">
+        <input type="text" name="city">
+        <input type="submit" value="Filter">
+        <input type="button" value="Clear filter" id="clear-filter">
+      </form>
+    </div>
+  </div>
+  <script>
+    const clearFilter = document.getElementById('clear-filter');
+    clearFilter.addEventListener('click', () => {
+      window.location='/users';
+    })
+  </script>
+</body>
+</html>

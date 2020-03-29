@@ -19,16 +19,14 @@ const userSchema = mongoose.Schema({
     required: true
   },
   phone: String,
-  address: {
-    city: {
-      type: String,
-      required: true
-    },
-    state: String,
-    country: {
-      type: String,
-      required: true
-    }
+  city: {
+    type: String,
+    required: true
+  },
+  state: String,
+  country: {
+    type: String,
+    required: true
   },
   category: {
     type: String,
