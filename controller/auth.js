@@ -1,48 +1,55 @@
 const bcrypt = require('bcrypt');
+const { validationResult } = require('express-validator');
 
 const User = require('../models/User');
 
 exports.getLoginPage = (req, res) => {
-	res.render('auth/login');
+	if(req.session.isLoggedIn) return res.redirect('/');
+
+	res.render('auth/login', {errorMessage: ''});
 };
 
 exports.loginUser = async (req, res) => {
 	const { email, password } = req.body;
-
 	try {
 		const user = await User.findOne({ email });
-		
-		if(!user) {
-			return res.redirect('/auth/login');
-		}
+
+		if (!user) {
+			return res.status(422).render('auth/login', {
+				errorMessage: "User does not exist"
+			})
+		};
 
 		const passwordMatched = await bcrypt.compare(password, user.password);
-
-		if(!passwordMatched) {
-			res.redirect('/auth/login');
+		if (!passwordMatched) {
+			return res.status(422).render('auth/login', {
+				errorMessage: "Invalid password"
+			})
 		}
 
-		
 		req.session.isLoggedIn = true;
-		req.session.user = user;
+		req.session.user = { name: user.name, email: user.email };
 
 		req.session.save(err => {
-			if(err) {
-				return console.log(err);
-			}
-			
+			if (err) return console.log(err);
 			res.redirect('/');
 		});
-
-
 	} catch (error) {
 		console.log(error);
 	}
-
-}
+};
 
 exports.getSignupPage = (req, res) => {
-	res.render('auth/signup');
+	let error = req.flash('error');
+	if (error.length > 0) {
+		error = error[0];
+	} else {
+		error = null;
+	}
+
+	if(req.session.isLoggedIn) return res.redirect('/');
+
+	res.render('auth/signup', { errorMessage: error });
 };
 
 exports.createUser = async (req, res) => {
@@ -62,7 +69,16 @@ exports.createUser = async (req, res) => {
 		role
 	} = req.body;
 
+	const errors = validationResult(req);
+
 	try {
+		if(!errors.isEmpty()) {
+			return res.status(422).render('auth/signup', {
+					errorMessage: errors.array()[0].msg
+			});			
+		}
+
+
 		const hashedPW = await bcrypt.hash(password, 12);
 		const user = User({
 			name,
@@ -80,8 +96,17 @@ exports.createUser = async (req, res) => {
 
 		await user.save();
 
-		res.redirect('/');
+		res.status(422).render('auth/login', {
+			errorMessage: "Account created. you can login to your account."
+		})
 	} catch (error) {
-        console.log(error);
-    }
+		console.log(error);
+	}
 };
+
+exports.logoutUser = (req, res, next) => {
+	req.session.destroy(err => {
+		if (err) return console.log(err);
+		res.redirect('/');
+	});
+}
