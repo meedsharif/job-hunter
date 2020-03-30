@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MY APP</title>
+</head>
+<body>
+  <ul class="posts">
+  <% for(var i=0; i<posts.length; i++) {%>
+    <li class="posts">
+      <span>username: <%= posts[i].author.name %> </span><span> <%= posts[i].createdAt %> :</span><br>
+      <span><%= posts[i].body %></span><br>
+      <% if(userid.toString () == posts[i].author._id.toString ()) { %>
+          <form action="/edit" method = "POST">
+          <input type="submit" value="edit">
+          </form>
+      <% } %>
+    </li>
+  <% } %>
+  </ul>
+</body>
+</html>
