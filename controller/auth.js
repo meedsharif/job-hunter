@@ -28,7 +28,7 @@ exports.loginUser = async (req, res) => {
 		}
 
 		req.session.isLoggedIn = true;
-		req.session.user = { name: user.name, email: user.email };
+		req.session.user = { name: user.name, email: user.email, id: user._id };
 
 		req.session.save(err => {
 			if (err) return console.log(err);

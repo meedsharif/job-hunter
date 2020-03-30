@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
 const publicRouter = require('./routes/public');
+const postRouter = require('./routes/posts');
 const authRouter = require('./routes/auth');
 
 const app = express();
@@ -59,6 +60,7 @@ app.use((req, res, next) => {
 
 // Routers
 app.use(publicRouter);
+app.use(postRouter);
 app.use('/auth', authRouter);
 
 
