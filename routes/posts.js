@@ -38,6 +38,8 @@ router.get('/show_post', async (req, res) => {
 });
 
 router.post('/delete/:id', async (req, res) => {
+    const isLoggedIn = req.session.isLoggedIn;
+    if (isLoggedIn) {
     try {
         await post.deleteOne({ _id: req.params.id })
 
@@ -45,17 +47,33 @@ router.post('/delete/:id', async (req, res) => {
     } catch (err) {
         console.log(err);
     }
+};
 })
 
 router.get('/edit/:id', async (req, res) => {
-    try{
-            var post = await post.findById(req.params.id)
+    const isLoggedIn = req.session.isLoggedIn;
+    if (isLoggedIn) {
+    try {
+        const Post = await post.findOne({ _id: mongoose.Types.ObjectId(req.params.id) });
+        console.log()
+        res.render('update_post', { post: Post })
+    } catch (err) {
+        console.log(err)
+    }
+}
+})
 
-            res.render('update_post', { post: post });
-
-    } catch (err){
+router.post('/updated/:id', async(req,res) => {
+    const isLoggedIn = req.session.isLoggedIn;
+    if (isLoggedIn) {
+    try {
+        await post.findByIdAndUpdate(req.params.id, req.body);
+        res.redirect('/show_post');
+    } catch (err) {
         console.log(err);
     }
+};
 })
+
 
 module.exports = router;
