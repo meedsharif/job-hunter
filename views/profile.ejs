@@ -1,33 +1,46 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Profile</title>
+<%- include('./includes/head.ejs') %> 
+  <title>Home</title>
 </head>
-
 <body>
-    <div class="container">
-        <div class="datails">
-            <div class="card text-xs-center">
-                <br>
-                <div class="card-block">
-                    <h4 class="card-title">User Details</h4>
-                    <p class="card-text">
-                        <strong>Name</strong>: <%= user.name %><br>
-                        <strong>Email</strong>: <%= user.email %><br>
-                        <strong>Phone Number</strong>: <%= user.phone %><br>
-                        <strong>Country</strong>: <%= user.address.country %><br>
-                        <strong>Address</strong>: <%= user.address.city %>,<%= user.address.state %><br>
-                        <strong>Category</strong>: <%= user.category %><br>
-                        <strong>Gender</strong>: <%= user.gender %><br>
-                        <strong>Birthdate</strong>: <%= user.date_of_birth %><br>
-                        <strong>Experience</strong>: <%= user.experience %><br>
-                        <strong>Bio</strong>: <%= user.bio %><br>
-                    </p>
-                    <a href="/logout" class="btn btn-default">Logout</a>
+  <%- include('./includes/primary-nav.ejs') %> 
+    <div class="container mt-2">
+
+            <div class="card">
+                <div class="card__image">
+                  <img src="https://robohash.org/<%= user.name %>" alt="<%= user.name %>'s picture'">
                 </div>
-            </div>
-        </div>
+                <div class="card__info">
+                    <span><strong>Name: </strong> <%= user.name %></span>
+                    <span><strong>Email: </strong> <%= user.email %></span>
+                    <span><strong>Country: </strong> <%= user.country %></span>
+            
+                    <% if (user.work_experience) { %>
+                        <span><strong>Experience: </strong> <%= user.work_experience %> Years</span>
+                    <% } else  { %>
+                        <span><strong>Experience: </strong> No work experience</span>
+                    <% }  %>                    
+
+                    <% if (user.category === "employee") { %>
+                        <span> Looking for a job</span>
+                    <% } else if(user.category === "partner") { %>
+                        <span> Looking for a business partner</span>
+                    <% } else if(user.category === "investor") { %>
+                        <span> I am an investor</span>
+                    <% }  %>
+                    
+                </div>
+              </div>
+            <!-- <p class="card__info">
+                <strong>Name</strong>: <%= user.name %><br>
+                <strong>Email</strong>: <%= user.email %><br>
+                <strong>Country</strong>: <%= user.country %><br>
+                <strong>Address</strong>: <%= user.city %> <%= user.state %><br>
+                <strong>Category</strong>: <%= user.category %><br>
+                <strong>Gender</strong>: <%= user.gender %><br>
+                <strong>Birthdate</strong>: <%= user.date_of_birth %><br>
+                <strong>Experience</strong>: <%= user.work_experience %><br>
+                <strong>Bio</strong>: <%= user.bio %><br>
+            </p> -->
     </div>
 </body>
 
