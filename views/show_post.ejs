@@ -11,8 +11,11 @@
       <span>username: <%= posts[i].author.name %> </span><span> <%= posts[i].createdAt %> :</span><br>
       <span><%= posts[i].body %></span><br>
       <% if(userid.toString () == posts[i].author._id.toString ()) { %>
-          <form action="/edit" method = "POST">
+          <form action="/edit/<%= posts[i]._id %>" method = "GET">
           <input type="submit" value="edit">
+          </form>
+          <form action="/delete/<%= posts[i]._id %>" method = "POST">
+          <input type="submit" value="delete">
           </form>
       <% } %>
     </li>

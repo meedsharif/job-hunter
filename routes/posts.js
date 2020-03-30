@@ -14,32 +14,48 @@ router.get('/post', (req, res) => {
 router.post('/redirect', function (req, res) {
     const isLoggedIn = req.session.isLoggedIn;
     if (isLoggedIn) {
-    var newPost = post({
-        body: req.body.body,
-        author: req.session.user._id
-    });
-    newPost.save(function (err, result) {
-        res.redirect('/show_post');
-    });
-};
+        var newPost = post({
+            body: req.body.body,
+            author: req.session.user._id
+        });
+        newPost.save(function (err, result) {
+            res.redirect('/show_post');
+        });
+    };
 });
 
 router.get('/show_post', async (req, res) => {
     const isLoggedIn = req.session.isLoggedIn;
     if (isLoggedIn) {
-	try{
-        const userId = req.session.user._id;
-		const posts = await post.find().populate('author', 'name');
-	res.render('show_post', { posts , userid : userId})
-	} catch(err) {
-		console.log(err);
+        try {
+            const userId = req.session.user._id;
+            const posts = await post.find().populate('author', 'name');
+            res.render('show_post', { posts, userid: userId })
+        } catch (err) {
+            console.log(err);
+        }
+    };
+});
+
+router.post('/delete/:id', async (req, res) => {
+    try {
+        await post.deleteOne({ _id: req.params.id })
+
+        res.redirect('/show_post');
+    } catch (err) {
+        console.log(err);
     }
-};
-});
+})
 
-router.post('/edit', function (req, res) {
-        res.redirect('/');
-});
+router.get('/edit/:id', async (req, res) => {
+    try{
+            var post = await post.findById(req.params.id)
 
+            res.render('update_post', { post: post });
+
+    } catch (err){
+        console.log(err);
+    }
+})
 
 module.exports = router;
