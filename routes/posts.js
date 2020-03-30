@@ -18,6 +18,7 @@ router.post('/redirect', function (req, res) {
             body: req.body.body,
             author: req.session.user._id
         });
+
         newPost.save(function (err, result) {
             res.redirect('/show_post');
         });
