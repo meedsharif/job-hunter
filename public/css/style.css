@@ -18,7 +18,8 @@ body {
   box-sizing: border-box;
   font-size: 2rem;
   color: #0c0c0c;
-  font-family: 'Roboto', sans-serif; }
+  font-family: 'Roboto', sans-serif;
+  background-color: #fafafa; }
 
 pre > code {
   font-size: 1.8rem; }
@@ -52,6 +53,18 @@ footer {
 .decoration-none {
   text-decoration: none; }
 
+.mr-1 {
+  margin-right: 2rem; }
+
+.mt-2 {
+  margin-top: 4rem; }
+
+.mt-2-not-1st-child > *:not(:first-child) {
+  margin-top: 4rem; }
+
+.mt-3 {
+  margin-top: 6rem; }
+
 .navbar {
   font-size: 2rem;
   padding: 2rem;
@@ -73,3 +86,37 @@ form {
     margin-top: 2rem;
     padding: 1.8rem;
     font-size: 1.8rem; }
+
+.card {
+  display: flex;
+  border: 1px solid #f2f2f2;
+  border-radius: 2rem;
+  padding: 1rem;
+  background-color: #fff; }
+  .card__image {
+    height: 20rem;
+    border-right: 1px solid #afafaf; }
+    .card__image img {
+      height: 100%; }
+  .card__info {
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column; }
+    .card__info > span {
+      margin-bottom: 2rem; }
+
+.user {
+  display: flex; }
+  .user__list {
+    flex: 40%; }
+  .user__filter {
+    flex-grow: 1;
+    background-color: #fff;
+    border-radius: 2rem; }
+    .user__filter > form {
+      margin: 1rem; }
+      .user__filter > form input {
+        border-radius: 1rem;
+        border: 2px solid #777; }
+      .user__filter > form .type {
+        display: flex; }

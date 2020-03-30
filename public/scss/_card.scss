@@ -1,0 +1,23 @@
+.card {
+  display: flex;
+  border: 1px solid darken($color: #fff, $amount: 5);
+  border-radius: 2rem;
+  padding: 1rem;
+  background-color: #fff;
+  &__image {
+    height: 20rem;
+    border-right: 1px solid rgb(175, 175, 175);
+    & img {
+      height: 100%;
+    }
+  }
+
+  &__info {
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    & > span {
+      margin-bottom: 2rem;
+    }
+  }
+}

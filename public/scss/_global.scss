@@ -22,6 +22,7 @@ body {
 	font-size: 2rem;
 	color: $color-font-default;
 	font-family: 'Roboto', sans-serif;
+	background-color: darken($color: #fff, $amount: 2);
 }
 
 ::selection {

@@ -12,3 +12,21 @@
 .decoration-none {
 	text-decoration: none;
 }
+
+.mr-1 {
+	margin-right: 2rem;
+}
+
+.mt-2 {
+	margin-top: 4rem;
+}
+
+.mt-2-not-1st-child {
+	& > *:not(:first-child) {
+		margin-top: 4rem;
+	}
+}
+
+.mt-3 {
+	margin-top: 6rem;
+}

@@ -1,37 +1,14 @@
 const express = require('express');
-
 const router = express.Router();
 
-const mongoose = require('mongoose');
+const publicController = require('../controller/public');
 
-const user = require('../models/User')
+const { getHomePage, showAllUsers, getUserProfile } = publicController;
 
-router.get('/', (req, res) => {
-  const isLoggedIn = req.session.isLoggedIn;
-  let username = "Anonymous";
-  if (isLoggedIn) {
-    username = req.session.user.name;
-  }
-  res.render('index', { username });
-})
+router.get('/', getHomePage)
 
-router.get('/investors', (req, res) => {
-  res.render('investors');
-});
+router.get('/users', showAllUsers);
 
-router.get('/employee', (req, res) => {
-  res.render('employee');
-});
-
-router.get('/partner', (req, res) => {
-  res.render('partner');
-});
-
-router.get('/profile/:name', function (req, res){
-  user.find({name:req.params.name}, function(err,docs) {
-    if(err) res.json(err);
-    else    res.render('profile',{user: docs[0]});
-  });
-});
+router.get('/profile/:name', getUserProfile);
 
 module.exports = router;
