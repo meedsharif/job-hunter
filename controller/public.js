@@ -1,5 +1,6 @@
 const cleanDeep = require('clean-deep');
 const User = require('../models/User');
+const post = require('../models/post');
 
 exports.getHomePage = (req, res) => {
   const isLoggedIn = req.session.isLoggedIn;
@@ -23,9 +24,25 @@ exports.showAllUsers = async(req, res) => {
 exports.getUserProfile = async (req, res) => {
   try {
     const user = await User.findOne({ name: req.params.name });
-    // const posts = await post.find({ author: user._id });
-    // console.log(posts);
-    res.render('profile', { user })
+    let posts = await post.find({ author: user._id }).populate('author', 'name');
+    
+    let months = [
+      "January", "February", "March",
+      "April", "May", "June",
+      "July", "August", "September",
+      "October", "November", "December"
+  ];
+
+    posts.forEach(post => {
+      
+      let date = new Date(post.createdAt);
+  
+      post['formattedDate'] = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+
+    })
+
+
+    res.render('profile', { user, posts })
   } catch (error) {
     console.log(error);
   }

@@ -13,8 +13,15 @@
             </div>
             <div class="card__info">
               <span>🕵️‍♂️ <%= u.name %></span>
-              <span>📧 <%= u.email %></span>
+              <span><%= u.email %></span>
               <span>🏡 <%= u.country %></span>
+              <% if (u.category === "employee") { %>
+                <span> Looking for a job</span>
+            <% } else if(u.category === "partner") { %>
+                <span> Looking for a business partner</span>
+            <% } else if(u.category === "investor") { %>
+                <span> I am an investor</span>
+            <% }  %>
               <span><a href="/profile/<%= u.name %>">View profile</a></span>
             </div>
           </div>

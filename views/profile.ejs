@@ -30,17 +30,20 @@
                     
                 </div>
               </div>
-            <!-- <p class="card__info">
-                <strong>Name</strong>: <%= user.name %><br>
-                <strong>Email</strong>: <%= user.email %><br>
-                <strong>Country</strong>: <%= user.country %><br>
-                <strong>Address</strong>: <%= user.city %> <%= user.state %><br>
-                <strong>Category</strong>: <%= user.category %><br>
-                <strong>Gender</strong>: <%= user.gender %><br>
-                <strong>Birthdate</strong>: <%= user.date_of_birth %><br>
-                <strong>Experience</strong>: <%= user.work_experience %><br>
-                <strong>Bio</strong>: <%= user.bio %><br>
-            </p> -->
+              <% if(posts.length > 0) {%>  
+                <h3 align="center" class="mt-2">All Posts</h3>
+                <% for( p of posts) { %> 
+                  <div class="card mt-2">
+                    <div class="card__info">
+                      <span><%= p.body %></span>
+                      <strong> - by <%= p.author.name %></strong>
+                      <span style="color: #777;"><%= p.formattedDate %></span>
+                    </div>
+                  </div>
+                <% } %>  
+              <% } else { %>
+                <div align="center" class="mt-2">No Posts by this user</div>
+              <% } %> 
     </div>
 </body>
 

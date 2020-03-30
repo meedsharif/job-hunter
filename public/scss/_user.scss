@@ -2,15 +2,16 @@
   display: flex;
   
   &__list {
-    flex: 40%;
+    flex-grow: 1;
   }
 
   &__filter {
-    flex-grow: 1;
+    flex: 10%;
     background-color: #fff;
     border-radius: 2rem;
 
     & > form {
+
       margin: 1rem;
 
       & input {

@@ -45,9 +45,9 @@ footer {
   width: 100%;
   padding: 0 1rem;
   margin: 0 auto; }
-  @media only screen and (min-width: 80rem) {
+  @media only screen and (min-width: 85rem) {
     .container {
-      width: 80rem;
+      width: 85rem;
       padding: 0; } }
 
 .decoration-none {
@@ -108,9 +108,9 @@ form {
 .user {
   display: flex; }
   .user__list {
-    flex: 40%; }
+    flex-grow: 1; }
   .user__filter {
-    flex-grow: 1;
+    flex: 10%;
     background-color: #fff;
     border-radius: 2rem; }
     .user__filter > form {
