@@ -46,6 +46,6 @@ const userSchema = mongoose.Schema({
   },
   work_experience: Number,
   role: String
-})
+},  { timestamps: true })
 
 module.exports = mongoose.model('User', userSchema);
