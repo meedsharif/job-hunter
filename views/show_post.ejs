@@ -6,9 +6,9 @@
 </head>
 <body>
   <ul class="posts">
-  <% for(var i=0; i<posts.length; i++) {%>
+  <% for(var i=0; i < posts.length; i++) { %>
     <li class="posts">
-      <span>username: <%= posts[i].author.name %> </span><span> <%= posts[i].createdAt %> :</span><br>
+      <span>username: <%= posts[i].author.name %> </span> <span> <%= posts[i].createdAt %> :</span><br>
       <span><%= posts[i].body %></span><br>
       <% if(userid.toString () == posts[i].author._id.toString ()) { %>
           <form action="/edit/<%= posts[i]._id %>" method = "GET">
