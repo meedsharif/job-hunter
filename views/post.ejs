@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html>
+<%- include('./includes/head.ejs') %> 
+  <title>Posts</title>
+</head>
 <body>
+  <%- include('./includes/primary-nav.ejs') %> 
+    <div class="container mt-2">
 <h1>Create Post</h1>
 <form action="/redirect" method = "POST">
-  <label for="">Create Post:</label><br>
   <textarea name='body' rows="3" cols="30"></textarea><br>
   <input type="submit" value="Post">
 </form>
+</div>
 </body>
 </html>
