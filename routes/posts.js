@@ -17,21 +17,8 @@ router.post('/redirect', function (req, res) {
         });
 
         newPost.save(function (err, result) {
-            res.redirect('/show_post');
+            res.redirect('/');
         });
-    };
-});
-
-router.get('/show_post', async (req, res) => {
-    const isLoggedIn = req.session.isLoggedIn;
-    if (isLoggedIn) {
-        try {
-            const userId = req.session.user.id;
-            const posts = await post.find().populate('author', 'name');
-            res.render('show_post', { posts, userid: userId })
-        } catch (err) {
-            console.log(err);
-        }
     };
 });
 
@@ -39,9 +26,9 @@ router.post('/delete/:id', async (req, res) => {
     const isLoggedIn = req.session.isLoggedIn;
     if (isLoggedIn) {
     try {
-        await post.deleteOne({ _id: req.params.id })
+        await post.deleteOne({ _id: req.params.id})
 
-        res.redirect('/show_post');
+        res.redirect('/');
     } catch (err) {
         console.log(err);
     }
@@ -60,12 +47,12 @@ router.get('/edit/:id', async (req, res) => {
 }
 })
 
-router.post('/updated/:id', async(req,res) => {
+router.post('/:id', async(req,res) => {
     const isLoggedIn = req.session.isLoggedIn;
     if (isLoggedIn) {
     try {
         await post.findByIdAndUpdate(req.params.id, req.body);
-        res.redirect('/show_post');
+        res.redirect('/');
     } catch (err) {
         console.log(err);
     }

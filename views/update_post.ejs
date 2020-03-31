@@ -2,10 +2,13 @@
 <html>
 <body>
 <h1>Create Post</h1>
-<form action="/updated/<%= post._id %>" method = "POST">
+<form action="/<%= post._id %>" method = "POST">
   <label for="">Edit Post:</label><br>
   <textarea name='body' rows="3" cols="30"><%= post.body %></textarea><br>
   <input type="submit" value="update">
+</form>
+<form action="/delete/<%= post._id %>" method="POST">
+  <input type="submit" value="delete">
 </form>
 </body>
 </html>

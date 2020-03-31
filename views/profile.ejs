@@ -38,6 +38,11 @@
                       <span><%= p.body %></span>
                       <strong> - by <%= p.author.name %></strong>
                       <span style="color: #777;"><%= p.formattedDate %></span>
+                      <% if(userid.toString () == p.author._id.toString ()) { %>
+                        <form action="/edit/<%= p._id %>" method="GET">
+                          <input type="submit" value="edit">
+                        </form>
+                        <% } %>
                     </div>
                   </div>
                 <% } %>  

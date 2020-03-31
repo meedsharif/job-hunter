@@ -1,11 +1,31 @@
-<%- include('./includes/head.ejs') %> 
-  <title>Home</title>
+<%- include('./includes/head.ejs') %>
+<title>Home</title>
 </head>
+
 <body>
-  <%- include('./includes/primary-nav.ejs') %> 
+  <%- include('./includes/primary-nav.ejs') %>
   Hello <%= username %><br>
 
-  <a href="http://newcareer.herokuapp.com/post">Click here to post</a><br />
-  <a href="http://newcareer.herokuapp.com/show_post">Click here to show posts</a><br />
+  <body>
+    <div class="container mt-2">
+      <h1>Create Post</h1>
+      <form action="/redirect" method="POST">
+        <textarea name='body' rows="3" cols="30"></textarea><br>
+        <input type="submit" value="Post">
+      </form>
+    </div>
+  </body>
+
+  <body>
+    <ul class="posts">
+      <% for(var i=0; i < posts.length; i++) { %>
+      <li class="posts">
+        <span>username: <%= posts[i].author.name %> </span> <span> <%= posts[i].createdAt %> :</span><br>
+        <span><%= posts[i].body %></span><br>
+      </li>
+      <% } %>
+    </ul>
+  </body>
 </body>
+
 </html>
