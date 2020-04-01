@@ -18,6 +18,16 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  chat: [
+    {
+      userId: String,
+      roomId: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'PrivateChat' 
+      }
+    }
+  ],
+  socketID: String,
   phone: String,
   city: {
     type: String,

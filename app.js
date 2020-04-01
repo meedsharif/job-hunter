@@ -3,16 +3,17 @@ const bodyparser = require('body-parser');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const flash = require('connect-flash');
-const dotenv = require('dotenv');
+dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
+
+const app = express();
+const server = require(process.env.PROTOCOL).Server(app)
+require('./socketio/socket')(server);
 
 const publicRouter = require('./routes/public');
 const postRouter = require('./routes/posts');
 const authRouter = require('./routes/auth');
-
-const app = express();
-// Load Environment Variables
-dotenv.config();
+const chatRouter = require('./routes/chat');
 
 const MONGODB_URI = process.env.MONGO_URI;
 mongoose.connect(MONGODB_URI, {
@@ -62,11 +63,16 @@ app.use((req, res, next) => {
 app.use(publicRouter);
 app.use(postRouter);
 app.use('/auth', authRouter);
+app.use('/chat', chatRouter);
+
+app.use((req, res) => {
+	res.send('404');
+})
 
 
 // Run the app once the app is connected to the database
 db.once('open', () => {
-	app.listen(process.env.PORT || 3000, () => {
+	server.listen(process.env.PORT || 3000, () => {
 		console.log('Running');
 	});
 });

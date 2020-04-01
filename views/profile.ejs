@@ -27,7 +27,7 @@
                     <% } else if(user.category === "investor") { %>
                         <span> I am an investor</span>
                     <% }  %>
-                    
+                    <a href="/chat/<%= user._id %>">Message</a>
                 </div>
               </div>
               <% if(posts.length > 0) {%>  
@@ -50,6 +50,4 @@
                 <div align="center" class="mt-2">No Posts by this user</div>
               <% } %> 
     </div>
-</body>
-
-</html>
+    <%- include('./includes/footer.ejs') %> 

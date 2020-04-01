@@ -22,7 +22,7 @@
             <% } else if(u.category === "investor") { %>
                 <span> I am an investor</span>
             <% }  %>
-              <span><a href="/profile/<%= u.name %>">View profile</a></span>
+              <span><a href="/profile/<%= u._id.toString() %>">View profile</a></span>
             </div>
           </div>
         <% } %>  
@@ -54,5 +54,4 @@
       window.location='/users';
     })
   </script>
-</body>
-</html>
+<%- include('./includes/footer.ejs') %> 

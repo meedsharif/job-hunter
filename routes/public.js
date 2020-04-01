@@ -9,6 +9,6 @@ router.get('/', getHomePage)
 
 router.get('/users', showAllUsers);
 
-router.get('/profile/:name', getUserProfile);
+router.get('/profile/:id', getUserProfile);
 
 module.exports = router;

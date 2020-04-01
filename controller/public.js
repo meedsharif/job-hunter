@@ -13,13 +13,19 @@ exports.getHomePage = async (req, res) => {
     } catch{
       console.log(err);
     }
+  }else {
+    res.redirect('/auth/login')
   }
 };
 
 exports.showAllUsers = async (req, res) => {
   try {
     lists = req.query;
-    const users = await User.find(cleanDeep(lists));
+    let users = await User.find(cleanDeep(lists));
+    // Remove current user from the list
+    users = users.filter(u => {
+      return u._id.toString() !== req.session.user.id.toString();
+    })
     res.render('users', { users });
   } catch (error) {
     console.log(error)
@@ -29,7 +35,7 @@ exports.showAllUsers = async (req, res) => {
 exports.getUserProfile = async (req, res) => {
   try {
     const userId = req.session.user.id;
-    const user = await User.findOne({ name: req.params.name });
+    const user = await User.findById(req.params.id);
     let posts = await post.find({ author: user._id }).populate('author', 'name');
 
     let months = [

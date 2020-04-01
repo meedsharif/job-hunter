@@ -1,0 +1,31 @@
+const User = require('../models/User');
+const PrivateChat = require('../models/PrivateChat');
+
+module.exports = server => {
+  const io = require('socket.io')(server);
+
+  io.on('connection', socket => {
+    let room;
+    socket.on('room', data => {
+      room = data;
+      socket.join(data);
+      socket.to(data).emit('welcome', 'WELCOME');
+    });
+    
+    socket.on("new-message", async data => {
+      try {
+        const pChat = await PrivateChat.findById(room);
+        pChat.messages.push({
+          message: data
+        })
+  
+        await pChat.save();
+  
+        socket.to(room).emit("send-message", data);
+      } catch (error) {
+        console.log(error)
+      }
+    })
+  })
+
+}
