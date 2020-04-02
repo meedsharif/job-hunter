@@ -11,8 +11,9 @@
     <div class="chat__users">
       <% if (users.length > 0) { %>
         <% for(u of users) { %>
-          
-          <span><a href="/chat/<%= u.userId._id.toString() %>"><%= u.userId.name %></a></span>
+          <% if (u.userId) { %>
+            <span><a href="/chat/<%= u.userId._id %>"><%= u.userId.name %></a></span>
+          <% } %>
           <% } %>
       <% } %>
     </div>
