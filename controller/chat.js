@@ -25,14 +25,14 @@ exports.getPrivateChatPage = async (req, res) => {
 			await pChat.save();
 
 			user.chat.push({
-				userId: req.session.user.id,
+				userId: req.session.user.id.toString(),
 				roomId: pChat._id
 			});
 
 			await user.save();
 
 			me.chat.push({
-				userId: user._id,
+				userId: user._id.toString(),
 				roomId: pChat._id
 			});
 
