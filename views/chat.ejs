@@ -3,13 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/style.css">
   <title>Chat</title>
 </head>
 <body>
-  <form action="" id="form">
-    <input type="text" id="message">
-    <input type="submit" value="Send">
-  </form>
+  <div class="chat">
+    <div class="chat__users">
+      <% for(u of users) { %>
+      <span><a href="/chat/<%= u.userId._id %>"><%= u.userId.name %></a></span>
+      <% } %>
+    </div>
+    <div class="chat__box">
+      <div class="chat-message" id="message-container">
+        <% if(messages.length>0) {%>
+          <% for(m of messages) {%>
+            <% if (m.senderId.toString() === myId.toString()) { %>
+              <span class="chat-message__list chat-message__list--right"><%= m.message %> </span>
+            <% } else {%>
+              <span class="chat-message__list chat-message__list--left"><%= m.message %> </span>
+            <% } %> 
+          <% } %>    
+        <% } %>  
+      </div>
+      <form action="" id="form">
+        <input type="text" id="message">
+        <input type="submit" value="Send">
+      </form>
+    </div>
+  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha256-bQmrZe4yPnQrLTY+1gYylfNMBuGfnT/HKsCGX+9Xuqo=" crossorigin="anonymous"></script>
   <script> const room = '<%= room %>'; </script>
   <script src="/js/chat.js"></script>

@@ -1,10 +1,9 @@
 const User = require('../models/User');
 const PrivateChat = require('../models/PrivateChat');
 
-module.exports = server => {
-  const io = require('socket.io')(server);
-
+module.exports = io => {
   io.on('connection', socket => {
+    // console.log(socket.handshake.session.user)
     let room;
     socket.on('room', data => {
       room = data;
@@ -16,7 +15,8 @@ module.exports = server => {
       try {
         const pChat = await PrivateChat.findById(room);
         pChat.messages.push({
-          message: data
+          message: data,
+          senderId: socket.handshake.session.user.id
         })
   
         await pChat.save();
