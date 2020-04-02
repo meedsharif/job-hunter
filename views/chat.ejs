@@ -9,8 +9,11 @@
 <body>
   <div class="chat">
     <div class="chat__users">
-      <% for(u of users) { %>
-      <span><a href="/chat/<%= u.userId._id %>"><%= u.userId.name %></a></span>
+      <% if (users.length > 0) { %>
+        <% for(u of users) { %>
+          
+          <span><a href="/chat/<%= u.userId._id.toString() %>"><%= u.userId.name %></a></span>
+          <% } %>
       <% } %>
     </div>
     <div class="chat__box">
