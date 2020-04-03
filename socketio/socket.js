@@ -19,7 +19,7 @@ module.exports = io => {
           senderId: socket.handshake.session.user.id
         })
   
-        await pChat.save();
+        pChat.save();
   
         socket.to(room).emit("send-message", data);
       } catch (error) {

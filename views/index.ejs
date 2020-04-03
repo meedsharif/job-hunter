@@ -17,8 +17,9 @@
 
   <body>
     <ul class="posts container">
+      <div class="mt-2">Hello <%= username %></div>
       <% for(var i=0; i < posts.length; i++) { %>
-      <li class="posts card">
+      <li class="posts card mt-2">
         <div class="card__info">
           <span>username: <%= posts[i].author.name %> </span> <span> <%= posts[i].createdAt %> :</span><br>
           <span><%= posts[i].body %></span><br>
