@@ -4,7 +4,6 @@
 
 <body>
   <%- include('./includes/primary-nav.ejs') %>
-  Hello <%= username %><br>
 
   <body>
     <div class="container mt-2">
@@ -17,11 +16,13 @@
   </body>
 
   <body>
-    <ul class="posts">
+    <ul class="posts container">
       <% for(var i=0; i < posts.length; i++) { %>
-      <li class="posts">
-        <span>username: <%= posts[i].author.name %> </span> <span> <%= posts[i].createdAt %> :</span><br>
-        <span><%= posts[i].body %></span><br>
+      <li class="posts card">
+        <div class="card__info">
+          <span>username: <%= posts[i].author.name %> </span> <span> <%= posts[i].createdAt %> :</span><br>
+          <span><%= posts[i].body %></span><br>
+        </div>
       </li>
       <% } %>
     </ul>

@@ -7,9 +7,10 @@
       <li class="navbar__list-item"><a href="/auth/signup">Signup</a></li>
       <li class="navbar__list-item"><a href="/auth/login">Login</a></li>
       <% } else { %>
-      <form action="/auth/logout" method="POST">
-        <input class="logout" type="submit" value="Logout">
-      </form>
+        <form action="/auth/logout" method="POST">
+          <input class="logout" type="submit" value="Logout">
+        </form>
+        <li class="navbar__list-item">  <%= username %></li>
       <% }  %>
     </ul>
   </div>
